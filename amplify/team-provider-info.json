@@ -1,0 +1,54 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-huurus-dev-123456-authRole",
+      "UnauthRoleName": "amplify-huurus-dev-123456-unauthRole",
+      "StackName": "amplify-huurus-dev-123456",
+      "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/amplify-huurus-dev-123456/12345678-1234-1234-1234-123456789012",
+      "AmplifyAppId": "d1234567890abc"
+    },
+    "categories": {
+      "api": {
+        "huur-us-api": {
+          "GraphQLAPIIdOutput": "1234567890abcdef",
+          "GraphQLAPIEndpointOutput": "https://1234567890abcdef.appsync-api.us-east-1.amazonaws.com/graphql",
+          "GraphQLAPIKeyOutput": "da2-1234567890abcdef"
+        }
+      },
+      "function": {
+        "huur-us-lambda": {
+          "Name": "huurusdev1234567890abcdef",
+          "Arn": "arn:aws:lambda:us-east-1:123456789012:function:huurusdev1234567890abcdef",
+          "Region": "us-east-1",
+          "LambdaExecutionRole": "amplify-huurus-dev-123456-lambdaExecutionRole"
+        }
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-huurus-prod-123456-authRole",
+      "UnauthRoleName": "amplify-huurus-prod-123456-unauthRole",
+      "StackName": "amplify-huurus-prod-123456",
+      "StackId": "arn:aws:cloudformation:us-east-1:123456789012:stack/amplify-huurus-prod-123456/12345678-1234-1234-1234-123456789012",
+      "AmplifyAppId": "d1234567890abc"
+    },
+    "categories": {
+      "api": {
+        "huur-us-api": {
+          "GraphQLAPIIdOutput": "1234567890abcdef",
+          "GraphQLAPIEndpointOutput": "https://1234567890abcdef.appsync-api.us-east-1.amazonaws.com/graphql",
+          "GraphQLAPIKeyOutput": "da2-1234567890abcdef"
+        }
+      },
+      "function": {
+        "huur-us-lambda": {
+          "Name": "huurusprod1234567890abcdef",
+          "Arn": "arn:aws:lambda:us-east-1:123456789012:function:huurusprod1234567890abcdef",
+          "Region": "us-east-1",
+          "LambdaExecutionRole": "amplify-huurus-prod-123456-lambdaExecutionRole"
+        }
+      }
+    }
+  }
+}

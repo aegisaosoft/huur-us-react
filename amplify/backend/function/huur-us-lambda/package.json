@@ -1,0 +1,10 @@
+{
+  "name": "huur-us-lambda",
+  "version": "2.0.0",
+  "description": "Lambda function for Huur-US API",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "aws-sdk": "^2.1490.0"
+  }
+}
