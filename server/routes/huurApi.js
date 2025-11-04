@@ -578,7 +578,8 @@ router.get('/parking-violations', async (req, res) => {
         paymentStatus: typeof violation.paymentStatus === 'number' ? violation.paymentStatus : 1,
         fineType: violation.fineType || 0,
         note: violation.note || null,
-        link: violation.link || violation.Link || null
+        link: violation.link || violation.Link || null,
+        driver: violation.driver || violation.driverName || (violation.driverFirstName && violation.driverLastName ? `${violation.driverFirstName} ${violation.driverLastName}` : null) || null
       })) : [],
       totalCount: response.data && response.data.result && Array.isArray(response.data.result) ? response.data.result.length : 0,
       page: parseInt(req.query.page) || 1,

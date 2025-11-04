@@ -52,6 +52,7 @@ type ParkingViolationRecord = {
   fineType: number;
   note: string | null;
   link: string | null;
+  driver: string | null;
 };
 
 const ParkingViolations: React.FC = () => {
@@ -193,6 +194,7 @@ const ParkingViolations: React.FC = () => {
         'Citation',
         'Notice',
         'License Plate',
+        'Driver',
         'Amount',
         'Issue Date',
         'Due Date',
@@ -208,6 +210,7 @@ const ParkingViolations: React.FC = () => {
         row.citationNumber || 'N/A',
         row.noticeNumber || 'N/A',
         row.tag && row.state ? `${row.tag}-${row.state}` : row.tag || 'N/A',
+        row.driver || 'N/A',
         `${row.currency || 'USD'} ${row.amount.toFixed(2)}`,
         row.issueDate ? new Date(row.issueDate).toLocaleDateString() : 'N/A',
         row.startDate ? new Date(row.startDate).toLocaleDateString() : 'N/A',
@@ -244,18 +247,19 @@ const ParkingViolations: React.FC = () => {
           valign: 'middle'
         },
         columnStyles: {
-          // Adjusted column widths for landscape A4 (297mm width) - 11 columns
+          // Adjusted column widths for landscape A4 (297mm width) - 12 columns
           0: { cellWidth: 20 }, // Citation
           1: { cellWidth: 25 }, // Notice
           2: { cellWidth: 25 }, // License Plate
-          3: { cellWidth: 20 }, // Amount
-          4: { cellWidth: 20 }, // Issue Date
-          5: { cellWidth: 20 }, // Due Date
-          6: { cellWidth: 30 }, // Agency
-          7: { cellWidth: 40 }, // Address
-          8: { cellWidth: 15 }, // Status
-          9: { cellWidth: 25 }, // Fine Type
-          10: { cellWidth: 30 } // Note
+          3: { cellWidth: 25 }, // Driver
+          4: { cellWidth: 20 }, // Amount
+          5: { cellWidth: 20 }, // Issue Date
+          6: { cellWidth: 20 }, // Due Date
+          7: { cellWidth: 30 }, // Agency
+          8: { cellWidth: 40 }, // Address
+          9: { cellWidth: 15 }, // Status
+          10: { cellWidth: 25 }, // Fine Type
+          11: { cellWidth: 30 } // Note
         },
         alternateRowStyles: {
           fillColor: [248, 249, 250] // Light gray alternating rows
@@ -303,8 +307,8 @@ const ParkingViolations: React.FC = () => {
         // Headers
         doc.setFontSize(8);
         doc.setFont('helvetica', 'bold');
-        const headers = ['Citation', 'Notice', 'Plate', 'Amount', 'Issue', 'Due', 'Agency', 'Address', 'Status', 'Type', 'Note'];
-        const columnPositions = [14, 34, 59, 84, 104, 124, 144, 174, 214, 229, 244];
+        const headers = ['Citation', 'Notice', 'Plate', 'Driver', 'Amount', 'Issue', 'Due', 'Agency', 'Address', 'Status', 'Type', 'Note'];
+        const columnPositions = [14, 34, 59, 84, 109, 129, 149, 169, 199, 234, 249, 264];
         
         headers.forEach((header, index: number) => {
           doc.text(header, columnPositions[index], yPosition);
@@ -338,6 +342,7 @@ const ParkingViolations: React.FC = () => {
             (row.citationNumber || 'N/A').substring(0, 8),
             (row.noticeNumber || 'N/A').substring(0, 8),
             (row.tag && row.state ? `${row.tag}-${row.state}` : row.tag || 'N/A').substring(0, 8),
+            (row.driver || 'N/A').substring(0, 8),
             `${row.currency || 'USD'} ${row.amount.toFixed(2)}`.substring(0, 8),
             row.issueDate ? new Date(row.issueDate).toLocaleDateString().substring(0, 8) : 'N/A',
             row.startDate ? new Date(row.startDate).toLocaleDateString().substring(0, 8) : 'N/A',
@@ -619,7 +624,7 @@ const ParkingViolations: React.FC = () => {
     () => [
       {
         id: 'payButton',
-        header: 'Action',
+        header: '',
         cell: ({ row }) => {
           const link = row.original.link;
           const citationNumber = row.original.citationNumber;
@@ -628,7 +633,7 @@ const ParkingViolations: React.FC = () => {
           return (
             <button
               className="btn btn-sm btn-primary"
-              style={{ padding: '2px 8px', fontSize: '12px', whiteSpace: 'nowrap' }}
+              style={{ padding: '1px 3px', fontSize: '12px', whiteSpace: 'nowrap', minWidth: 'auto' }}
               onClick={(e) => {
                 e.stopPropagation();
                 if (hasLink) {
@@ -654,7 +659,7 @@ const ParkingViolations: React.FC = () => {
             </button>
           );
         },
-        size: 70,
+        size: 8,
         enableSorting: false,
       },
       {
@@ -675,6 +680,11 @@ const ParkingViolations: React.FC = () => {
           const state = row.original.state;
           return tag && state ? `${tag}-${state}` : tag || 'N/A';
         },
+      },
+      {
+        accessorKey: 'driver',
+        header: 'Driver',
+        cell: ({ row }) => row.original.driver || 'N/A',
       },
       {
         accessorKey: 'amount',
